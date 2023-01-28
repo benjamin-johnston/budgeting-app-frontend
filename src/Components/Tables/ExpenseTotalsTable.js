@@ -7,9 +7,6 @@ function ExpenseTotalsTable(props) {
   const [expenseTotals, setExpenseTotals] = useState([]);
 
   const getExpenseTotals = (month, year) => {
-    console.log(month);
-    console.log(year);
-
     fetch("http://localhost:8080/budgetingapp/expenseCategory/totals", {
       method: "post",
       headers: {
@@ -22,20 +19,24 @@ function ExpenseTotalsTable(props) {
     })
       .then((response) => response.json())
       .then((expenseTotals) => {
-        console.log(expenseTotals);
         setExpenseTotals(expenseTotals);
       })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
-    getExpenseTotals("2023", "01");
+    getExpenseTotals("01", "2023");
   }, []);
 
-  const expenseTotalRows = expenseTotals.map((category) => {
+  function getCategoryName(categoryId) {
+    const category = props.expenseCategories[categoryId - 1];
+    return category["name"];
+  }
+
+  const expenseTotalRows = expenseTotals?.map((category) => {
     return (
       <tr key={category.categoryId}>
-        <th scope="row">{category.categoryId}</th>
+        <th scope="row">{getCategoryName(category.categoryId)}</th>
         <td>{category.categorySum}</td>
         <td>
           <div style={{ width: "110px" }}></div>
@@ -43,6 +44,22 @@ function ExpenseTotalsTable(props) {
       </tr>
     );
   });
+
+  const fixedExpenseRows = props.expenseCategories
+    ?.filter((category) => category.billAmount > 0)
+    .map((category) => {
+      return (
+        <tr key={category.id}>
+          <th scope="row">{category.name}</th>
+          <td>
+            {((category.billAmount * category.billFrequency) / 12).toFixed(2)}
+          </td>
+          <td>
+            <div style={{ width: "110px" }}></div>
+          </td>
+        </tr>
+      );
+    });
 
   return (
     <React.Fragment>
@@ -65,7 +82,10 @@ function ExpenseTotalsTable(props) {
                 <th>Total</th>
               </tr>
             </thead>
-            <tbody>{expenseTotalRows}</tbody>
+            <tbody>
+              {expenseTotalRows}
+              {fixedExpenseRows}
+            </tbody>
           </Table>
         </Col>
       </Row>

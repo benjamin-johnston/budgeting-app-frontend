@@ -67,7 +67,7 @@ function App(props) {
         deleteExpenseFromState={deleteExpenseFromState}
         expenseCategories={expenseCategories}
   /> */}
-      <ExpenseTotalsTable />
+      <ExpenseTotalsTable expenseCategories={expenseCategories} />
       {/*ExpenseCategoryTable expenseCategories={expenseCategories} */}
     </Container>
   );
