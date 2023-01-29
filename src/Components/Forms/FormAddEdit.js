@@ -114,7 +114,7 @@ function AddEditForm(props) {
       <FormGroup>
         <Label for="expenseDate">Expense Date</Label>
         <Input
-          type="expenseDate"
+          type="date"
           name="expenseDate"
           id="expenseDate"
           onChange={onChange}
