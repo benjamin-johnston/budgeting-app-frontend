@@ -5,7 +5,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ExpenseTotalsTable from "../Tables/ExpenseTotalsTable";
-import DataTable from "../Tables/DataTable";
+import ExpenseTable from "../Tables/ExpenseTable";
 import ExpenseCategoryTable from "../Tables/ExpenseCategoryTable";
 
 function TabPanel(props) {
@@ -62,7 +62,7 @@ export default function BasicTabs(props) {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <DataTable {...props} />
+        <ExpenseTable {...props} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <ExpenseTotalsTable

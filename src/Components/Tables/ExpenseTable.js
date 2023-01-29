@@ -3,7 +3,7 @@ import { Table, Button, Row, Col } from "reactstrap";
 import ModalForm from "../Modals/Modal";
 import { CSVLink } from "react-csv";
 
-function DataTable(props) {
+function ExpenseTable(props) {
   const deleteExpense = (id) => {
     let confirmDelete = window.confirm("Delete expense forever?");
     if (confirmDelete) {
@@ -127,4 +127,4 @@ function DataTable(props) {
   );
 }
 
-export default DataTable;
+export default ExpenseTable;
