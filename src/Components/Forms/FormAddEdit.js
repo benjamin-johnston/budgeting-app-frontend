@@ -18,6 +18,7 @@ function AddEditForm(props) {
   };
 
   const submitFormAdd = (e) => {
+    console.log(form);
     e.preventDefault();
     fetch("http://localhost:8080/budgetingapp/expenses/save", {
       method: "post",
@@ -57,7 +58,6 @@ function AddEditForm(props) {
     })
       .then((response) => response.json())
       .then((expense) => {
-        console.log(expense);
         props.updateState(expense);
         props.toggle();
       })

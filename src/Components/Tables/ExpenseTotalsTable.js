@@ -6,8 +6,22 @@ import ModalForm from "../Modals/Modal";
 
 function ExpenseTotalsTable(props) {
   const [expenseTotals, setExpenseTotals] = useState([]);
+  const [month, setMonth] = useState(() => {
+    var today = new Date();
+    var mm = today.getMonth() + 1;
 
-  const getExpenseTotals = (month, year) => {
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+    var initialYearMonth = today.getFullYear() + "-" + mm;
+
+    return initialYearMonth;
+  });
+
+  const getExpenseTotals = (yearMonth) => {
+    var year = yearMonth.substring(0, 4);
+    var month = yearMonth.substring(5, 7);
+
     fetch("http://localhost:8080/budgetingapp/expenseCategory/totals", {
       method: "post",
       headers: {
@@ -26,9 +40,8 @@ function ExpenseTotalsTable(props) {
   };
 
   useEffect(() => {
-    getExpenseTotals("01", "2023");
-    console.log("useEffect");
-  }, []);
+    getExpenseTotals(month);
+  }, [props.expenses, month]);
 
   function getCategoryName(categoryId) {
     const category = props.expenseCategories[categoryId - 1];
@@ -41,8 +54,8 @@ function ExpenseTotalsTable(props) {
   const expenseTotalRows = expenseTotals?.map((category) => {
     return (
       <tr key={category.categoryId}>
-        <td scope="row">{category.categoryId}</td>
-        <td scope="row">{getCategoryName(category.categoryId)}</td>
+        <td>{category.categoryId}</td>
+        <td>{getCategoryName(category.categoryId)}</td>
         <td style={{ textAlign: "right" }}>
           {category.categorySum.toFixed(2)}
         </td>
@@ -67,7 +80,7 @@ function ExpenseTotalsTable(props) {
       </Row>
       <Row>
         <Col>
-          <MonthPicker getExpenseTotals={getExpenseTotals} />
+          <MonthPicker month={month} setMonth={setMonth} />
         </Col>
         <Col>
           <ModalForm

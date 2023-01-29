@@ -1,20 +1,6 @@
-import React, { useState } from "react";
-
-function MonthPicker() {
-  const [month, setMonth] = useState(() => {
-    var today = new Date();
-    var mm = today.getMonth() + 1;
-
-    if (mm < 10) {
-      mm = "0" + mm;
-    }
-    var initialMonth = today.getFullYear() + "-" + mm;
-
-    return initialMonth;
-  });
-
+function MonthPicker(props) {
   const onChange = (event) => {
-    setMonth(event.target.value);
+    props.setMonth(event.target.value);
   };
 
   return (
@@ -24,7 +10,7 @@ function MonthPicker() {
         type="month"
         id="month"
         name="month"
-        value={month}
+        value={props.month}
         onChange={onChange}
       ></input>
     </div>

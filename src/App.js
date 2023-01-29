@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "reactstrap";
+import { Container } from "reactstrap";
 import TabPanel from "./Components/TabPanel/TabPanel";
 
 import "bootstrap/dist/css/bootstrap.min.css";
