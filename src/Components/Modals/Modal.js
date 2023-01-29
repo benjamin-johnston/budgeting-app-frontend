@@ -56,6 +56,7 @@ function ModalForm(props) {
             updateState={props.updateState}
             toggle={toggle}
             expense={props.expense}
+            expenseCategories={props.expenseCategories}
           />
         </ModalBody>
       </Modal>

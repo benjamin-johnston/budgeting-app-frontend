@@ -86,6 +86,7 @@ function ExpenseTotalsTable(props) {
           <ModalForm
             buttonLabel="Add Expense"
             addExpenseToState={props.addExpenseToState}
+            expenseCategories={props.expenseCategories}
           />
         </Col>
       </Row>

@@ -42,6 +42,7 @@ function AddEditForm(props) {
   };
 
   const submitFormEdit = (e) => {
+    console.log(form);
     e.preventDefault();
     fetch("http://localhost:8080/budgetingapp/expenses/save", {
       method: "post",
@@ -65,7 +66,6 @@ function AddEditForm(props) {
   };
 
   useEffect(() => {
-    console.log("Start useEffect");
     if (props.expense) {
       const { id, description, amount, categoryId, expenseDate } =
         props.expense;
@@ -78,6 +78,14 @@ function AddEditForm(props) {
       });
     }
   }, [props.expense]);
+
+  const selectOptions = props.expenseCategories?.map((category) => {
+    return (
+      <option key={category.id} value={category.id}>
+        {category.name}
+      </option>
+    );
+  });
 
   return (
     <Form onSubmit={props.expense ? submitFormEdit : submitFormAdd}>
@@ -104,12 +112,14 @@ function AddEditForm(props) {
       <FormGroup>
         <Label for="categoryId">Category</Label>
         <Input
-          type="text"
-          name="categoryId"
           id="categoryId"
+          name="categoryId"
+          type="select"
           onChange={onChange}
           value={form.categoryId === null ? "" : form.categoryId}
-        />
+        >
+          {selectOptions}
+        </Input>
       </FormGroup>
       <FormGroup>
         <Label for="expenseDate">Expense Date</Label>

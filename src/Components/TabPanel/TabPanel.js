@@ -62,13 +62,7 @@ export default function BasicTabs(props) {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <DataTable
-          addExpenseToState={props.addExpenseToState}
-          expenses={props.expenses}
-          updateState={props.updateState}
-          deleteExpenseFromState={props.deleteExpenseFromState}
-          expenseCategories={props.expenseCategories}
-        />
+        <DataTable {...props} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <ExpenseTotalsTable

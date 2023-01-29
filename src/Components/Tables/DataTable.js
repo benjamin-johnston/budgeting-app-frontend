@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Table, Button, Row, Col } from "reactstrap";
 import ModalForm from "../Modals/Modal";
 import { CSVLink } from "react-csv";
@@ -46,6 +46,7 @@ function DataTable(props) {
               buttonLabel="Edit"
               expense={expense}
               updateState={props.updateState}
+              expenseCategories={props.expenseCategories}
             />{" "}
             <Button color="danger" onClick={() => deleteExpense(expense.id)}>
               Del
@@ -74,10 +75,7 @@ function DataTable(props) {
           >
             Download CSV
           </CSVLink>
-          <ModalForm
-            buttonLabel="Add Expense"
-            addExpenseToState={props.addExpenseToState}
-          />
+          <ModalForm buttonLabel="Add Expense" {...props} />
         </Col>
       </Row>
       <Row>
