@@ -29,6 +29,7 @@ function AddEditForm(props) {
         amount: form.amount,
         categoryId: form.categoryId,
         expenseDate: form.expenseDate,
+        staticExpenseInd: "N",
       }),
     })
       .then((response) => response.json())

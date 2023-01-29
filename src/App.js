@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "reactstrap";
-import ModalForm from "./Components/Modals/Modal";
-import DataTable from "./Components/Tables/DataTable";
-import ExpenseTotalsTable from "./Components/Tables/ExpenseTotalsTable";
-import ExpenseCategoryTable from "./Components/Tables/ExpenseCategoryTable";
+import TabPanel from "./Components/TabPanel/TabPanel";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -26,6 +23,7 @@ function App(props) {
   };
 
   const addExpenseToState = (expense) => {
+    console.log(expense);
     var expenseIndex = 0;
     //Find the correct insertion point
     //Data is sorted by expenseDate descending
@@ -60,15 +58,13 @@ function App(props) {
 
   return (
     <Container className="App">
-      {/*<DataTable
-        addExpenseToState={addExpenseToState}
+      <TabPanel
         expenses={expenses}
         updateState={updateState}
         deleteExpenseFromState={deleteExpenseFromState}
         expenseCategories={expenseCategories}
-  /> */}
-      <ExpenseTotalsTable expenseCategories={expenseCategories} />
-      {/*ExpenseCategoryTable expenseCategories={expenseCategories} */}
+        addExpenseToState={addExpenseToState}
+      />
     </Container>
   );
 }

@@ -15,9 +15,6 @@ function ExpenseCategoryTable(props) {
       <tr key={category.id}>
         <th scope="row">{category.id}</th>
         <td>{category.name}</td>
-        <td>{resolveFixedAmountInd(category.fixedAmountInd)}</td>
-        <td>{category.billFrequency}</td>
-        <td>{category.billAmount}</td>
         <td>
           <div style={{ width: "110px" }}></div>
         </td>
@@ -39,9 +36,6 @@ function ExpenseCategoryTable(props) {
               <tr>
                 <th>Category Id</th>
                 <th>Name</th>
-                <th>Fixed Amount ( Y / N)</th>
-                <th>Bill Frequency</th>
-                <th>Bill Amount</th>
               </tr>
             </thead>
             <tbody>{expenses}</tbody>
