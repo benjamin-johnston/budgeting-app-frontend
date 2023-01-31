@@ -6,6 +6,7 @@ import ModalForm from "../Modals/Modal";
 
 function ExpenseTotalsTable(props) {
   const [expenseTotals, setExpenseTotals] = useState([]);
+  const [payCheckAmount, setPayCheckAmount] = useState("");
   const [month, setMonth] = useState(() => {
     var today = new Date();
     var mm = today.getMonth() + 1;
@@ -38,6 +39,28 @@ function ExpenseTotalsTable(props) {
       })
       .catch((err) => console.log(err));
   };
+
+  const getPayCheckAmount = (frequency) => {
+    fetch("http://localhost:8080/budgetingapp/pay/getByFrequency", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        frequency: frequency,
+      }),
+    })
+      .then((response) => response.json())
+      .then((payCheckAmount) => {
+        console.log(payCheckAmount);
+        setPayCheckAmount(payCheckAmount[0].payAmount);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getPayCheckAmount(12);
+  }, []);
 
   useEffect(() => {
     getExpenseTotals(month);
@@ -107,6 +130,26 @@ function ExpenseTotalsTable(props) {
                 <th scope="row">Total</th>
                 <td style={{ textAlign: "right" }}>
                   {monthlyTotal.toFixed(2)}
+                </td>
+                <td>
+                  <div style={{ width: "110px" }}></div>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <th scope="row">Paycheck Amount</th>
+                <td style={{ textAlign: "right" }}>
+                  {payCheckAmount.toFixed(2)}
+                </td>
+                <td>
+                  <div style={{ width: "110px" }}></div>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <th scope="row">Balance</th>
+                <td style={{ textAlign: "right" }}>
+                  {payCheckAmount.toFixed(2) - monthlyTotal.toFixed(2)}
                 </td>
                 <td>
                   <div style={{ width: "110px" }}></div>
