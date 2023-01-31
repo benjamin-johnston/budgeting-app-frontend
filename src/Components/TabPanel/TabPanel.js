@@ -77,7 +77,7 @@ export default function BasicTabs(props) {
         <ExpenseCategoryTable expenseCategories={props.expenseCategories} />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <ExpenseImportTable />
+        <ExpenseImportTable addExpenseToState={props.addExpenseToState} />
       </TabPanel>
     </Box>
   );

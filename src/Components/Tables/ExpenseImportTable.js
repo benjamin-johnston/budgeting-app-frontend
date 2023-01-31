@@ -18,10 +18,40 @@ function ExpenseTable(props) {
   const [file, setFile] = useState();
 
   const deleteExpenseFromState = (id) => {
+    console.log("deleteExpenseFromState: " + id);
     const updatedExpenses = importedExpenses.filter(
       (expense) => expense.id !== id
     );
     setImportedExpenses(updatedExpenses);
+  };
+
+  const submitExpenses = (e) => {
+    e.preventDefault();
+    let result = [];
+    importedExpenses.forEach((expense) => {
+      fetch("http://localhost:8080/budgetingapp/expenses/save", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          description: expense.description,
+          amount: expense.amount,
+          categoryId: expense.categoryId,
+          expenseDate: expense.expenseDate,
+          staticExpenseInd: "N",
+        }),
+      })
+        .then((response) => response.json())
+        .then((newExpense) => {
+          props.addExpenseToState(newExpense);
+        })
+        .catch((err) => {
+          console.log(err);
+          result.push(expense);
+        });
+    });
+    setImportedExpenses(result);
   };
 
   const sortExpenses = () => {
@@ -97,6 +127,16 @@ function ExpenseTable(props) {
       </tr>
     );
   });
+
+  const submitButton = () => {
+    if (importedExpenses.length !== 0) {
+      return (
+        <Button color="success" onClick={(e) => submitExpenses(e)}>
+          Submit
+        </Button>
+      );
+    }
+  };
 
   return (
     <React.Fragment>
@@ -177,6 +217,9 @@ function ExpenseTable(props) {
             </thead>
             <tbody>{expenses}</tbody>
           </Table>
+          <Button color="success" onClick={(e) => submitExpenses(e)}>
+            Submit
+          </Button>
         </Col>
       </Row>
     </React.Fragment>
