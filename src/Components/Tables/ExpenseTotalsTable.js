@@ -52,6 +52,7 @@ function ExpenseTotalsTable(props) {
   }
 
   const expenseTotalRows = expenseTotals?.map((category) => {
+    console.log(category);
     return (
       <tr key={category.categoryId}>
         <td>{category.categoryId}</td>

@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import ExpenseTotalsTable from "../Tables/ExpenseTotalsTable";
 import ExpenseTable from "../Tables/ExpenseTable";
 import ExpenseCategoryTable from "../Tables/ExpenseCategoryTable";
+import ExpenseImportTable from "../Tables/ExpenseImportTable";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -20,8 +21,8 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+        <Box sx={{ span: 4 }}>
+          <Typography component={"span"}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -59,6 +60,7 @@ export default function BasicTabs(props) {
           <Tab label="Expenses" {...a11yProps(0)} />
           <Tab label="Totals" {...a11yProps(1)} />
           <Tab label="Categories" {...a11yProps(2)} />
+          <Tab label="Import Expenses" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -73,6 +75,9 @@ export default function BasicTabs(props) {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <ExpenseCategoryTable expenseCategories={props.expenseCategories} />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <ExpenseImportTable />
       </TabPanel>
     </Box>
   );
