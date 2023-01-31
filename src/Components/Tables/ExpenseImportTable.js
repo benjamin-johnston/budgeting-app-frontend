@@ -10,8 +10,7 @@ import {
   Form,
   FormGroup,
 } from "reactstrap";
-import ModalForm from "../Modals/Modal";
-import { CSVLink } from "react-csv";
+import CategorySelect from "../Dropdowns/CategorySelect";
 
 function ExpenseTable(props) {
   const [importedExpenses, setImportedExpenses] = useState([]);
@@ -106,13 +105,25 @@ function ExpenseTable(props) {
     setImportedExpenses(expenseArray);
   };
 
+  const onCategorySelectChange = (e) => {
+    console.log(e.target.value);
+  };
+
   const expenses = importedExpenses.map((expense) => {
     return (
       <tr key={expense.id}>
         <th scope="row">{expense.id}</th>
         <td>{expense.description}</td>
         <td>{expense.amount}</td>
-        <td>{expense.categoryId}</td>
+        <td>
+          <CategorySelect
+            categoryId={expense.categoryId}
+            expenseCategories={props.expenseCategories}
+            onChange={(e) => {
+              expense.categoryId = e.target.value;
+            }}
+          />
+        </td>
         <td>{expense.expenseDate}</td>
         <td>
           <div style={{ width: "110px" }}>

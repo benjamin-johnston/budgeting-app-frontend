@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import CategorySelect from "../Dropdowns/CategorySelect";
 
 function AddEditForm(props) {
   const [form, setValues] = useState({
@@ -79,14 +80,6 @@ function AddEditForm(props) {
     }
   }, [props.expense]);
 
-  const selectOptions = props.expenseCategories?.map((category) => {
-    return (
-      <option key={category.id} value={category.id}>
-        {category.name}
-      </option>
-    );
-  });
-
   return (
     <Form onSubmit={props.expense ? submitFormEdit : submitFormAdd}>
       <FormGroup>
@@ -110,16 +103,12 @@ function AddEditForm(props) {
         />
       </FormGroup>
       <FormGroup>
-        <Label for="categoryId">Category</Label>
-        <Input
-          id="categoryId"
-          name="categoryId"
-          type="select"
+        <CategorySelect
+          categoryId={form.categoryId}
+          expenseCategories={props.expenseCategories}
           onChange={onChange}
-          value={form.categoryId === null ? "" : form.categoryId}
-        >
-          {selectOptions}
-        </Input>
+          showLabel
+        />
       </FormGroup>
       <FormGroup>
         <Label for="expenseDate">Expense Date</Label>
