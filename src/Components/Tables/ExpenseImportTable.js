@@ -106,7 +106,24 @@ function ExpenseTable(props) {
   };
 
   const onCategorySelectChange = (e) => {
-    console.log(e.target.value);
+    updateExpenseCategory(
+      parseInt(e.target.parentNode.parentNode.firstChild.textContent),
+      e.target.value
+    );
+  };
+
+  const updateExpenseCategory = (id, categoryId) => {
+    const index = importedExpenses.findIndex((data) => data.id === id);
+
+    let expense = importedExpenses[index];
+
+    expense.categoryId = categoryId;
+    const newArray = [
+      ...importedExpenses.slice(0, index),
+      expense,
+      ...importedExpenses.slice(index + 1),
+    ];
+    setImportedExpenses(newArray);
   };
 
   const expenses = importedExpenses.map((expense) => {
@@ -119,9 +136,7 @@ function ExpenseTable(props) {
           <CategorySelect
             categoryId={expense.categoryId}
             expenseCategories={props.expenseCategories}
-            onChange={(e) => {
-              expense.categoryId = e.target.value;
-            }}
+            onChange={onCategorySelectChange}
           />
         </td>
         <td>{expense.expenseDate}</td>
